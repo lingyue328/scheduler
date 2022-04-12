@@ -22,11 +22,18 @@ const TermButton = ({ term, setTerm, checked }) => (
     </>
 );
 
+const scheduleChanged = (selected, courses) => (
+    selected.some(course => course !== courses[course.id])
+  );
 
 const CourseList = ({ courses }) => {
     const [term, setTerm] = useState('Fall');
     const [selected, setSelected] = useState([]);
     const termCourses = Object.values(courses).filter(course => term === getCourseTerm(course));
+
+    if (scheduleChanged(selected, courses)) {
+        setSelected([])
+      };
 
     return (
         <>
